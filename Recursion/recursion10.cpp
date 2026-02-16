@@ -1,0 +1,42 @@
+// Remove Duplicates
+// appnnacollege -> apncoleg
+#include<bits/stdc++.h>
+#include<string>
+using namespace std;
+void removeDuplicates(string str, string ans, int i, int map[26]){
+    if(i == str.size()){
+        cout<<" ans : "<< ans <<endl;
+        return;
+    }
+    char ch=str[i];
+    int mapIdx=(int)(ch-'a');
+
+    if(map[mapIdx]){  //duplicate
+        removeDuplicates(str,ans,i+1,map);
+    }else{ //not duplicate
+        map[mapIdx]=true;
+        removeDuplicates(str,ans+str[i],i+1,map);
+
+    }
+}
+/*(my soln)
+void removeDuplicate(string &str,string &ans,int i,int map[26]){
+    if(i >= str.length()){
+        return;
+    }
+    int idx=str[i]-'a';
+    if(map[idx] == 0){
+        map[idx]=1;
+        ans+=str[i];
+    }
+    removeDuplicate(str,ans,i+1,map);
+
+}
+*/
+int main(){
+    string str="appnnacollege";
+    string ans="";
+    int map[26]={false};
+    removeDuplicates(str,ans,0,map);
+    return 0;
+}
