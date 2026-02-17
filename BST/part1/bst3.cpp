@@ -25,6 +25,7 @@ Node* insert(Node* root,int val){
     }else{
         root->right=insert(root->right,val);
     }
+    return root;
 }
 Node* buildBST(int arr[],int n){
     Node* root=NULL;
@@ -54,9 +55,9 @@ Node* delNode(Node* root,int val){
         return NULL;
     }
     if(root->data > val){//left subtree
-        del(root->left,val);
+        root->left = delNode(root->left,val);
     }else if(root->data < val){//right subtree
-        del(root->right,val);
+        root->right = delNode(root->right,val);
     }else{
         //root == val
         //we reach to the node which has to delete
@@ -67,19 +68,26 @@ Node* delNode(Node* root,int val){
         }
         //case2 : 1 child 
         if (root->left == NULL || root->right == NULL){
-            return root->left=NULL ? root->right : root->left;
+            return root->left == NULL ? root->right : root->left;
             //if left == NULL return right child node or left != NULL return left child
         }
 
-        //case2 : 2 children
+        //case3 : 2 children
         Node* is = getinorderSuccessor(root->right);
         root->data=is->data;//assigning is(inorder successor) to node which we have to delete which is pointed by root
-
+        root->right = delNode(root->right,is->data);//case 1 , case 2
+        return root;
     }
+    return root;
 
 }
 int main(){
-    int arr[]={8,10,11,14,5,6,3,1,4};
+    int arr[]={8,5,3,1,4,6,10,11,14};
     Node* root=buildBST(arr,9);
     inorder(root);
+    cout<<endl;
+    delNode(root,11);
+    inorder(root);
+    cout<<endl;
+    return 0;
 }
