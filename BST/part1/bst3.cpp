@@ -44,7 +44,7 @@ void inorder(Node* root){
     inorder(root->right);
 }
 Node* getinorderSuccessor(Node* root){
-    while(root != NULL){
+    while(root->left != NULL){
         root=root->left;
     }
     return root;//is(inorder successor)
