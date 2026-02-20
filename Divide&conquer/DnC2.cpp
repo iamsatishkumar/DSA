@@ -20,7 +20,7 @@ int partition(int arr[],int si,int ei){
     }
 
     i++;//to swap pivot
-    swap(arr[pivot],arr[ei]);
+    swap(arr[i],arr[ei]);
     //pivot idx = i
     return i;
 }
@@ -30,7 +30,7 @@ void quickSort(int arr[],int si,int ei){//O(n*logn)
     }
     int pivot=partition(arr,si,ei);
 
-    quickSort(arr,si,pivot);//left half
+    quickSort(arr,si,pivot-1);//left half
     quickSort(arr,pivot+1,ei);//right half
 }
 int mai(){
